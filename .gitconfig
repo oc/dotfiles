@@ -1,0 +1,17 @@
+[core]
+	editor = mate -w
+	excludesfile = /Users/oc/.gitignore
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+[user]
+	name = Ole Christian Rynning
+	email = oc@rynning.no
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[merge]
+	tool = opendiff

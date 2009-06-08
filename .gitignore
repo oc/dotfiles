@@ -1,0 +1,40 @@
+syntax: glob
+
+# OSX
+.DS_Store
+
+# Misc
+*.log
+*.orig
+*.bak
+*.class
+*~
+*.old
+
+# IDEA
+*.iml
+*.iws
+*.ipr
+
+# Java
+out/
+target/
+classes/
+tmp*
+temp*
+dist/
+test-out/
+
+# Eclipse
+.project
+.settings
+.classpath
+.manager
+
+# SCM
+.svn
+.hg*
+
+# DB
+*.sqlite3
+*.db

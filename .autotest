@@ -1,0 +1,26 @@
+require 'autotest'
+module Autotest::Growl
+  def self.growl(title, msg, img, pri=0, stick="")
+    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}"
+  end
+
+  Autotest.add_hook :initialize do |autotest|
+    %w{.git .svn .hg .DS_Store ._* vendor}.each {|exception| autotest.add_exception(exception) }
+    false
+  end
+
+  Autotest.add_hook :ran_command do |autotest|
+    results = [autotest.results].flatten.join("\n")    
+    output = results.slice(/(\d+)\s+tests?,\s*(\d+)\s+assertions?,\s*(\d+)\s+failures?,\s*(\d+)\s+errors?/)
+    
+    #61 tests, 84 assertions, 0 failures, 0 errors  
+    
+    if output =~ /([1-9]\d*)\s*errors?/
+      growl("DOH!", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/error.png'", 2, "-s")
+    elsif output =~ /([1-9]\d*)\s*failures?/
+      growl("WELL?", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/failed.png'", 2, "-s")
+    else
+      growl("Ok!", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/passed.png'")
+    end
+  end
+end
