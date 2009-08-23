@@ -5,6 +5,13 @@
 	st = status
 	ci = commit
 	co = checkout
+	pu = pull --rebase
+	up = pull --rebase
+	sup = svn fetch
+	sci = svn dcommit
+	sreb = svn rebase
+	srebt = svn rebase remotes/trunk
+	reb = rebase
 [user]
 	name = Ole Christian Rynning
 	email = oc@rynning.no
