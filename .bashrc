@@ -31,11 +31,6 @@ export SCALA_HOME=/opt/scala
 # Java 6
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 
-# The Grinder 3
-export GRINDERPATH=/opt/grinder-3.2
-export GRINDERPROPERTIES=/opt/grinder-3.2/etc/grinder.properties
-export GRINDERCLASSPATH=$GRINDERPATH/lib/grinder.jar;$CLASSPATH
-
 # Java Rebel
 export JAVAREBEL_HOME=/opt/javarebel
 
@@ -76,7 +71,7 @@ alias l="ls"
 alias pu="pushd ."
 alias po="popd"
 
-# Convenience
+# Code-convenience
 alias j='jruby'
 alias js='jruby -S'
 alias gen='ruby script/generate'
@@ -87,20 +82,12 @@ alias cuke='rake features'
 alias smi='cd /Users/oc/dev/SMIDIG/smidig2009'
 alias bio='cd /Users/oc/dev/CAPASIT/biosphere'
 alias c4d='cd /Users/oc/dev/github/cuke4duke'
-
-# VPN
-#alias vpn='vpnclient connect UTV_grunnmur user USER pwd PWD'
-
-function grinderAgent() {
-  java -cp $GRINDERCLASSPATH net.grinder.Grinder $GRINDERPROPERTIES  
-}
-
-function grinderConsole() {
-  java -cp $GRINDERCLASSPATH net.grinder.Console
-}
-
-function grinderProxy() {
-  java -cp $CLASSPATH net.grinder.TCPProxy -console -http > grinder.py
+ 
+gn() {
+  cmd=Command
+  test $# -gt 0 && cmd=$@  
+  eval $cmd
+  growlnotify -n Shell -m "exited with $?" "$cmd"
 }
 
 # Resty for curl

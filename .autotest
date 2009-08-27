@@ -1,4 +1,8 @@
 require 'autotest'
+#require 'autotest_notification'
+require 'autotest/fsevent'
+require 'autotest/growl'
+
 module Autotest::Growl
   def self.growl(title, msg, img, pri=0, stick="")
     system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}"
@@ -16,11 +20,12 @@ module Autotest::Growl
     #61 tests, 84 assertions, 0 failures, 0 errors  
     
     if output =~ /([1-9]\d*)\s*errors?/
-      growl("DOH!", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/error.png'", 2, "-s")
+      growl("DOH!", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/error.png'", 3)
     elsif output =~ /([1-9]\d*)\s*failures?/
-      growl("WELL?", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/failed.png'", 2, "-s")
+      growl("WELL?", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/failed.png'", 3)
     else
       growl("Ok!", "#{output}", "'/Library/Ruby/Gems/1.8/gems/autotest-growl-0.1.1/img/passed.png'")
     end
   end
 end
+
