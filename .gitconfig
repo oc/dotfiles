@@ -1,11 +1,12 @@
 [core]
 	editor = mate -w
 	excludesfile = /Users/oc/.gitignore
+	autocrlf = input
 [alias]
 	st = status
 	ci = commit
 	co = checkout
-	pu = pull --rebase
+	pu = push origin master
 	up = pull --rebase
 	sup = svn fetch
 	sci = svn dcommit
@@ -22,3 +23,5 @@
 	status = auto
 [merge]
 	tool = opendiff
+[filter "tabspace"]
+[filter "tab2space"]

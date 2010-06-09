@@ -15,28 +15,21 @@ export PS1='\[\033[1m\]\[\033[36m\]\w\[\033[33m\]$(parse_git_branch)$(parse_svn_
 export LSCOLORS=DxGxcxdxCxcgcdabagacad #yellow dirs
 #export LSCOLORS=ExGxFxDxCxHxHxCbCeEbEb #bold lightblue dirs
 
-export HISTCONTROL=ignoredups #erasedups
-export HISTFILESIZE=3000
-export HISTIGNORE="ls:cd:[bf]g:exit:..:...:l:ll:la:pu:po"
-
-# Erlang
-export ERLANG_HOME=/opt/erlang
+shopt -s cmdhist
+export HISTCONTROL=erasedups #ignoredups
+export HISTFILESIZE=5000
+export HISTIGNORE="&:ls:cd:[bf]g:exit:..:...:l:ll:la:pu:po:unrar:exit"
 
 # Scala
 export SCALA_HOME=/opt/scala
 
-# Rabbit MQ
-# export RABBITMQ_BASE=/opt/erlang/lib/erlang/lib/rabbitmq-server-1.6.0
-
-# Java 6
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+# JRuby Trunk
+export JRUBY_HOME=/opt/jruby-trunk
 
 # Java Rebel
 export JAVAREBEL_HOME=/opt/javarebel
 
-# JRuby Trunk
-export JRUBY_HOME=/opt/jruby-trunk
-export PATH=$JAVA_HOME/bin:/opt/subversion/bin:$PATH:/usr/local/mysql/bin:$JRUBY_HOME/bin:~/.gem/jruby/1.8/bin:$SCALA_HOME/bin
+export PATH=$JAVA_HOME/bin:/opt/subversion/bin:$PATH:/usr/local/mysql/bin:$JRUBY_HOME/bin:$SCALA_HOME/bin
 
 # /opt
 for d in local $(ls /opt/ | grep -v local); do
@@ -79,9 +72,8 @@ alias m2='mvn clean install'
 alias cuke='rake features'
 
 # Projects
-alias smi='cd /Users/oc/dev/SMIDIG/smidig2009'
-alias bio='cd /Users/oc/dev/CAPASIT/biosphere'
-alias c4d='cd /Users/oc/dev/github/cuke4duke'
+alias spo='cd /Users/oc/dev/BRING/sporing/sporing-web'
+alias rep='cd /Users/oc/dev/BRING/mybring/trunk/dev/rapport'
  
 gn() {
   cmd=Command
@@ -91,4 +83,11 @@ gn() {
 }
 
 # Resty for curl
-. .resty
+. ~oc/.resty
+
+# MySQL 5.1.41 via homebrew
+alias startmysql='/opt/homebrew/Cellar/mysql/5.1.41/share/mysql/mysql.server start'
+alias stopmysql='/opt/homebrew/Cellar/mysql/5.1.41/share/mysql/mysql.server stop'
+
+# RVM
+if [[ -f /Users/oc/.rvm/scripts/rvm ]] ; then source /Users/oc/.rvm/scripts/rvm ; fi

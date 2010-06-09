@@ -5,6 +5,11 @@ syntax: glob
 
 # Misc
 *.log
+*.log.1
+*.log.2
+*.log.3
+*.log.4
+*.log.5
 *.orig
 *.bak
 *.class
@@ -21,7 +26,6 @@ out/
 target/
 classes/
 tmp*
-temp*
 dist/
 test-out/
 
@@ -35,6 +39,13 @@ test-out/
 .svn
 .hg*
 
+# Clover
+.clover
+
 # DB
 *.sqlite3
 *.db
+
+# IDEA Ruby Plugin
+.generators
+.rakeTasks
