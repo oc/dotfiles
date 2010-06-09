@@ -25,7 +25,7 @@ syntax: glob
 out/
 target/
 classes/
-tmp*
+tmp/
 dist/
 test-out/
 
