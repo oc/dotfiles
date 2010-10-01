@@ -1,18 +1,25 @@
-parse_git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'; }
-parse_svn_branch() { parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk -F / '{print "(svn::"$2 ")"}'; }
-parse_svn_url() { svn info 2>/dev/null | grep -e '^URL*' | sed -e 's#^URL: *\(.*\)#\1#g '; }
-parse_svn_repository_root() { svn info 2>/dev/null | grep -e '^Repository Root:*' | sed -e 's#^Repository Root: *\(.*\)#\1\/#g '; }
-pix() { scp $1 oc:/var/www/oc/pix; }
+# Path to your oh-my-zsh configuration.
+export ZSH=$HOME/.oh-my-zsh
 
-export PS1='\[\033[1m\]\[\033[36m\]\w\[\033[33m\]$(parse_git_branch)$(parse_svn_branch)\[\033[0m\]\[\033[31m\]:\[\033[32m\]➔\[\033[0m\] '
+# Set to the name theme to load.
+# Look in ~/.oh-my-zsh/themes/
+export ZSH_THEME="oc"
 
-export LSCOLORS=DxGxcxdxCxcgcdabagacad #yellow dirs
-#export LSCOLORS=ExGxFxDxCxHxHxCbCeEbEb #bold lightblue dirs
+# Set to this to use case-sensitive completion
+# export CASE_SENSITIVE="true"
 
-shopt -s cmdhist
-export HISTCONTROL=erasedups #ignoredups
-export HISTFILESIZE=5000
-export HISTIGNORE="&:ls:cd:[bf]g:exit:..:...:l:ll:la:pu:po:unrar:exit"
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git gem textmate ruby brew)
+
+source $ZSH/oh-my-zsh.sh
+
+# fix rvm
+unsetopt auto_name_dirs
+
+# yellow dirs
+export LSCOLORS=DxGxcxdxCxcgcdabagacad
+#LSCOLORS=Gxfxcxdxbxegedabagacad
 
 # Scala
 export SCALA_HOME=/opt/scala
@@ -73,7 +80,7 @@ done
 
 # Convenience
 alias ls="ls -G -F"
-alias la="ls -al"
+alias la="ls -alh"
 alias ll="ls -l"
 alias l="ls"
 
@@ -84,16 +91,8 @@ alias j='jruby'
 alias js='jruby -S'
 alias gen='ruby script/generate'
 alias m2='mvn clean install'
-alias cuke='cucumber features'
-
 alias m2c='mvn clean install -DskipTests -P-integrationTests'
-
-# Projects (censored)
-alias spo='cd ...'
-alias rep='cd ...'
-alias bk='cd ...'
-alias lab='cd ...'
-alias shp='cd ...'
+alias cuke='cucumber features'
 
 # MySQL via homebrew
 alias startmysql='/opt/homebrew/Cellar/mysql/5.1.47/share/mysql/mysql.server start'
@@ -101,51 +100,17 @@ alias stopmysql='/opt/homebrew/Cellar/mysql/5.1.47/share/mysql/mysql.server stop
 
 alias startredis='redis-server /opt/homebrew/etc/redis.conf'
 
-# Resty REST convenience
-if [[ -f /Users/oc/.bash/resty.bash ]] ; then source /Users/oc/.bash/resty.bash ; fi
+# Misc helper functions
+pix() { scp $1 oc:/var/www/oc/pix; }
 
-# Git completion
-if [[ -f /Users/oc/.bash/git-completion.bash ]] ; then source /Users/oc/.bash/git-completion.bash ; fi
-
-function idiotMv() {
+idiot-mv() {
   orig=$1
   dest=$2
 
   if [[ -f $dest ]]; then
-    git reset HEAD $orig
-    git reset HEAD $dest
-
-    mv $dest ${dest}.tmp
-    git checkout $orig
-    git mv $orig $dest
-    mv ${dest}.tmp $dest
-    echo "OK"
+    git reset HEAD $orig && git reset HEAD $dest && mv $dest ${dest}.tmp && git checkout $orig && git mv $orig $dest && mv ${dest}.tmp $dest && echo "OK"
   fi
 }
 
 # RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-alias wtf='dmesg'
-alias onoz='cat /var/log/errors.log'
-alias rtfm='man'
-
-alias visible='echo'
-alias invisible='cat'
-alias moar='more'
-
-alias icanhas='mkdir'
-alias donotwant='rm'
-alias dowant='cp'
-alias gtfo='mv'
-
-alias hai='cd'
-alias plz='pwd'
-
-alias inur='locate'
-
-alias nomz='ps -aux'
-alias nomnom='killall'
-
-alias cya='reboot'
-alias kthxbai='halt'
+if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
