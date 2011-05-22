@@ -10,7 +10,7 @@ export ZSH_THEME="oc"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git gem textmate ruby brew)
+plugins=(git gem textmate ruby brew rails3 bundler)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -29,7 +29,7 @@ setopt autocd extendedglob auto_pushd no_beep
 # options
 unsetopt auto_name_dirs # fix rvm
 
-export EDITOR=vi
+export EDITOR=vim
 export GEM_EDITOR=mate
 export BUNDLER_EDITOR=mate
 
@@ -43,6 +43,7 @@ export JREBEL_HOME=/opt/jrebel
 export ANDROID_SDK=/opt/android-sdk-mac_86
 export CABAL_HOME=/Users/oc/.cabal
 export RUBYGEMS_BIN=/Library/Ruby/Gems/1.8/bin
+export JSTESTDRIVER_HOME=/opt/jstestdriver
 
 # Autotest
 export AUTOFEATURE=true
@@ -55,7 +56,13 @@ export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_10_2
 export M2_HOME=/opt/maven
 export MAVEN_OPTS="-Xmx400m -Xms80m -XX:MaxPermSize=120m"
 
-export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH:/usr/local/mysql/bin:$JRUBY_HOME/bin:$SCALA_HOME/bin:$ANDROID_SDK/tools:/Users/oc/.gem/ruby/1.8/bin:$CABAL_HOME/bin:$RUBYGEMS_BIN:/Users/oc/bin
+# Go
+export GOROOT=`/opt/homebrew/bin/brew --prefix go`
+export GOBIN=/opt/homebrew/bin
+export GOARCH=amd64
+export GOOS=darwin
+
+export PATH=$HOME/bin:$JAVA_HOME/bin:$M2_HOME/bin:$PATH:/usr/local/mysql/bin:$JRUBY_HOME/bin:$SCALA_HOME/bin:$ANDROID_SDK/tools:/Users/oc/.gem/ruby/1.8/bin:$CABAL_HOME/bin:$RUBYGEMS_BIN:/Users/oc/bin:$JSTESTDRIVER_HOME
 
 # /opt
 for d in local $(ls /opt/ | grep -v local); do
@@ -81,9 +88,19 @@ for d in local $(ls /opt/ | grep -v local); do
     fi
   fi
 done
+# Projects
+alias spo='cd /Users/oc/dev/BRING/sporing'
+alias rep='cd /Users/oc/dev/BRING/reports'
+alias bk='cd /Users/oc/dev/BRING/booking'
+alias lab='cd /Users/oc/dev/BRING/bring-label-generator'
+alias ship='cd /Users/oc/dev/BRING/bring-shipment-number'
+alias wip='cd /Users/oc/WIP'
+alias rts='cd /Users/oc/Dropbox/Shares/ROOTS2011'
 
 # Overrides
 alias rake='nocorrect rake'
+alias e='vim'
+alias vi='vim'
 
 # Convenience
 alias ls="ls -G -F"
@@ -115,14 +132,21 @@ alias gcp='git cherry-pick'
 
 #alias git-svn-dcommit-push='git svn dcommit && git push github master:svntrunk'
 alias gbup='git pull origin $(current_branch)'
+alias gbal='git pull --all -v'
 alias gbpu='git push origin $(current_branch)'
 alias gbpnp='git pull origin $(current_branch) && git push origin $(current_branch)'
 
 # MySQL via homebrew
-alias startmysql='/opt/homebrew/Cellar/mysql/5.1.47/share/mysql/mysql.server start'
-alias stopmysql='/opt/homebrew/Cellar/mysql/5.1.47/share/mysql/mysql.server stop'
+alias startmysql='cd /opt/homebrew/var/mysql/; mysql.server start; cd -'
+alias stopmysql='cd /opt/homebrew/var/mysql/; mysql.server stop; cd -'
+
+# PostgreSQL via homebrew
+alias startpgsql='pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/postgres/server.log start'
+alias stoppgsql='pg_ctl -D /opt/homebrew/var/postgres stop -s -m fast'
 
 alias startredis='redis-server /opt/homebrew/etc/redis.conf'
+
+alias bekkvpn='sudo route add -net 10.0.30.0 10.100.100.1'
 
 # Misc helper functions
 pix() { scp $1 oc:/var/www/oc/pix; }
@@ -135,6 +159,42 @@ idiot-mv() {
     git reset HEAD $orig && git reset HEAD $dest && mv $dest ${dest}.tmp && git checkout $orig && git mv $orig $dest && mv ${dest}.tmp $dest && echo "OK"
   fi
 }
+
+pgrep() { ps axco pid,command | grep "${*}" | grep -v grep }
+pkill() { pgrep "${*}" | awk '{ print $1; }' | xargs kill }
+pkill9() { pgrep "${*}" | awk '{ print $1; }' | xargs kill -9 }
+
+#FFMPEG=/opt/homebrew/bin/ffmpeg
+FFMPEG=/opt/avi2ipad/bin/ffmpeg
+
+function avi2ipad() {
+  for file in $*; do
+    title=$(basename ${file} .avi)
+    outfile=${title}.mp4
+    timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+
+    if [[ -f ${file} ]]; then
+      echo "[${timestamp}] Converting ${file} to ${outfile}"
+
+      time ${FFMPEG} -y -i ${file} -f mp4 -metadata title=${title} \
+          -timestamp ${timestamp} -vcodec libx264 -level 30 -b 1024k \
+          -bt 1024k -bufsize 10M -maxrate 10M -g 250 -coder 0 \
+          -flags +loop -cmp +chroma \
+          -partitions +parti4x4+partp8x8+partb8x8 -flags2 +mixed_refs \
+          -me_method umh -subq 6 -trellis 1 -refs 3 -me_range 16 \
+          -keyint_min 25 -sc_threshold 40 -i_qfactor 0.71 -qmin 10 \
+          -qmax 51 -qdiff 4 -threads 0 -acodec aac -ac 2 -ab 128k \
+          ${outfile}
+    fi
+  done
+}
+
+# MP4 1.5M + aac
+#time ${FFMPEG} -y -i ${file} -f mp4 -metadata title=${title} \
+#    -timestamp ${timestamp} -vcodec libxvid -s 480x270 -b 1024k \
+#    -bufsize 2M -maxrate 1.5M -g 250 -flags +aic+cbp+mv0+mv4 \
+#    -trellis 1 -mbd 2 -cmp 2 -subcmp 2 -threads 0 -acodec aac \
+#    -ac 2 -ab 128k ${outfile}
 
 # RVM
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
