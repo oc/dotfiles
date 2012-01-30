@@ -38,12 +38,8 @@ export BUNDLER_EDITOR=mate
 #LSCOLORS=Gxfxcxdxbxegedabagacad
 
 export SCALA_HOME=/opt/scala
-export JRUBY_HOME=/opt/jruby-trunk
 export JREBEL_HOME=/opt/jrebel
-export ANDROID_SDK=/opt/android-sdk-mac_86
 export CABAL_HOME=/Users/oc/.cabal
-export RUBYGEMS_BIN=/Library/Ruby/Gems/1.8/bin
-export JSTESTDRIVER_HOME=/opt/jstestdriver
 
 # Autotest
 export AUTOFEATURE=true
@@ -53,16 +49,15 @@ export NLS_LANG=NORWEGIAN_NORWAY.UTF8
 export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_10_2
 
 # Maven
-export M2_HOME=/opt/maven
 export MAVEN_OPTS="-Xmx400m -Xms80m -XX:MaxPermSize=120m"
 
 # Go
-export GOROOT=`/opt/homebrew/bin/brew --prefix go`
-export GOBIN=/opt/homebrew/bin
+export GOROOT=`/usr/local/bin/brew --prefix go`
+export GOBIN=/usr/local/bin
 export GOARCH=amd64
 export GOOS=darwin
 
-export PATH=$HOME/bin:$JAVA_HOME/bin:$M2_HOME/bin:$PATH:/usr/local/mysql/bin:$JRUBY_HOME/bin:$SCALA_HOME/bin:$ANDROID_SDK/tools:/Users/oc/.gem/ruby/1.8/bin:$CABAL_HOME/bin:$RUBYGEMS_BIN:/Users/oc/bin:$JSTESTDRIVER_HOME
+export PATH=$HOME/bin:/usr/local/bin:$SCALA_HOME/bin:$CABAL_HOME/bin:$PATH
 
 # /opt
 for d in local $(ls /opt/ | grep -v local); do
@@ -95,7 +90,6 @@ alias bk='cd /Users/oc/dev/BRING/booking'
 alias lab='cd /Users/oc/dev/BRING/bring-label-generator'
 alias ship='cd /Users/oc/dev/BRING/bring-shipment-number'
 alias wip='cd /Users/oc/WIP'
-alias rts='cd /Users/oc/Dropbox/Shares/ROOTS2011'
 
 # Overrides
 alias rake='nocorrect rake'
@@ -137,8 +131,10 @@ alias gbpu='git push origin $(current_branch)'
 alias gbpnp='git pull origin $(current_branch) && git push origin $(current_branch)'
 
 # MySQL via homebrew
-alias startmysql='cd /opt/homebrew/var/mysql/; mysql.server start; cd -'
-alias stopmysql='cd /opt/homebrew/var/mysql/; mysql.server stop; cd -'
+alias startmysql='mysql.server start'
+alias stopmysql='mysql.server stop'
+
+alias startmongo='mongod run --config /usr/local/etc/mongod.conf'
 
 # PostgreSQL via homebrew
 alias startpgsql='pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/postgres/server.log start'
@@ -197,4 +193,4 @@ function avi2ipad() {
 #    -ac 2 -ab 128k ${outfile}
 
 # RVM
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
