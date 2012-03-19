@@ -46,14 +46,14 @@ nnoremap K <nop>                       " kill manual key
 ""
 
 " We have to learn to use h, j, k, l
-#nnoremap <up> <nop>
-#nnoremap <down> <nop>
-#nnoremap <left> <nop>
-#nnoremap <right> <nop>
-#inoremap <up> <nop>
-#inoremap <down> <nop>
-#inoremap <left> <nop>
-#inoremap <right> <nop>
+"nnoremap <up> <nop>
+"nnoremap <down> <nop>
+"nnoremap <left> <nop>
+"nnoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
 
 " Move up and down in screen lines, not file lines:
 nnoremap j gj
