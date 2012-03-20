@@ -95,6 +95,7 @@ alias wip='cd /Users/oc/WIP'
 alias rake='nocorrect rake'
 alias e='mvim'
 alias vi='mvim'
+alias vim='mvim'
 
 # Convenience
 alias ls="ls -G -F"
@@ -128,7 +129,11 @@ alias gcp='git cherry-pick'
 alias gbup='git pull origin $(current_branch)'
 alias gbal='git pull --all -v'
 alias gbpu='git push origin $(current_branch)'
+alias gbup='git pull origin $(current_branch)'
+
 alias gbpnp='git pull origin $(current_branch) && git push origin $(current_branch)'
+
+alias wtc='git commit -m "$(curl -qs whatthecommit.com | sed -nE '\''s/<p>(.*)/\1/p'\'')"'
 
 # MySQL via homebrew
 alias startmysql='mysql.server start'
@@ -137,10 +142,11 @@ alias stopmysql='mysql.server stop'
 alias startmongo='mongod run --config /usr/local/etc/mongod.conf'
 
 # PostgreSQL via homebrew
-alias startpgsql='pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/postgres/server.log start'
-alias stoppgsql='pg_ctl -D /opt/homebrew/var/postgres stop -s -m fast'
+alias startpgsql='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 
-alias startredis='redis-server /opt/homebrew/etc/redis.conf'
+alias stoppgsql='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
+alias startredis='redis-server /usr/local/etc/redis.conf'
 
 alias bekkvpn='sudo route add -net 10.0.30.0 10.100.100.1'
 
