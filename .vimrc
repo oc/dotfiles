@@ -148,12 +148,19 @@ augroup vimrcEx
     \ endif
 augroup END
 
-runtime bundle.vim
-
 ""
 "" Plugins
 "" 
+call pathogen#infect()
 
 " Toggle NERDTree with leader-o
 nnoremap <leader>o :NERDTreeToggle<CR>
 
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" Automatically close syntastic error window when no errors are detected:
+let g:syntastic_auto_loc_list=2
+
+" Mark syntastic errors:
+let g:syntastic_enable_signs=1
