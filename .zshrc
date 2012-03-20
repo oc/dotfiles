@@ -29,9 +29,9 @@ setopt autocd extendedglob auto_pushd no_beep
 # options
 unsetopt auto_name_dirs # fix rvm
 
-export EDITOR=vim
-export GEM_EDITOR=mate
-export BUNDLER_EDITOR=mate
+export EDITOR=mvim
+export GEM_EDITOR=mvim
+export BUNDLER_EDITOR=mvim
 
 # yellow dirs
 #export LSCOLORS=DxGxcxdxCxcgcdabagacad
@@ -93,8 +93,8 @@ alias wip='cd /Users/oc/WIP'
 
 # Overrides
 alias rake='nocorrect rake'
-alias e='vim'
-alias vi='vim'
+alias e='mvim'
+alias vi='mvim'
 
 # Convenience
 alias ls="ls -G -F"
