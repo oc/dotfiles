@@ -10,6 +10,7 @@ set directory=~/.vim/tmp/swap//,/tmp//  " swap files
 set autoread         " read a unchanged file if it's been changed outside vim
 set ruler            " show line and column number of cursor position
 set showcmd          " display incomplete commands
+set hidden           " Allw hidden buffers
 ""
 "" Color and syntax highlighting
 ""
@@ -21,7 +22,7 @@ filetype plugin indent on        " language dependent indenting
 ""
 "" User Interface
 ""
-set backspace=indent,eol,start " allow backspacing over items
+set backspace=indent,eol,start " intuitive backspacing over items
 
 set incsearch                  " display search results incrementally
 set hlsearch                   " highligh all search matches
@@ -32,6 +33,9 @@ set gdefault                   " default substitute all changes on a line
 set noerrorbells
 set novisualbell
 set t_vb=
+
+" Disable dumb prompts
+set shortmess=atI
 
 set wildmode=longest,list,full " shell like tab completion behavior
 set wildignore+=*.pyc,*.png
@@ -53,6 +57,11 @@ nnoremap k gk
 "noremap <C-j> <C-w>j
 "noremap <C-k> <C-w>k
 "noremap <C-l> <C-w>l
+"
+
+" Scroll faster
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 set scrolloff=3   " Display next/prev 3 lines after/before cursor
 
@@ -123,10 +132,10 @@ nnoremap <leader>l :set list!<CR>
 nnoremap <leader>p :set invpaste<CR>
 
 " Opens an edit command with the path of the current file filled in
-nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Opens a tab edit command with the path of the current file filled in
-nnoremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Create vertical split and navigate to it:
 nnoremap <leader>w <C-w>v<C-w>l
@@ -164,3 +173,4 @@ let g:syntastic_auto_loc_list=2
 
 " Mark syntastic errors:
 let g:syntastic_enable_signs=1
+
