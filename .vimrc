@@ -39,37 +39,20 @@ set wildignore+=*.pyc,*.png
 autocmd InsertLeave * set nocursorline " no cursorline in normal mode
 autocmd InsertEnter * set cursorline   " cursorline in insert mode
 autocmd FileType help wincmd L         " Open help window in vertical split
-nnoremap K <nop>                       " kill manual key
 
 ""
 "" Movement
 ""
 
-" We have to learn to use h, j, k, l
-"nnoremap <up> <nop>
-"nnoremap <down> <nop>
-"nnoremap <left> <nop>
-"nnoremap <right> <nop>
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
-
 " Move up and down in screen lines, not file lines:
 nnoremap j gj
 nnoremap k gk
 
-" Tab movement shortcuts:
-nnoremap <left> gT
-nnoremap <right> gt
-nnoremap <silent> <up> :if tabpagenr() == 1\|exe "tabm ".tabpagenr("$")\|else\|exe "tabm ".(tabpagenr()-2)\|endif<CR> 
-nnoremap <silent> <down> :if tabpagenr() == tabpagenr("$")\|tabm 0\|else\|exe "tabm ".tabpagenr()\|endif<CR>
-
 " Split movement shortcuts:
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+"nnoremap <C-h> <C-w>h
+"noremap <C-j> <C-w>j
+"noremap <C-k> <C-w>k
+"noremap <C-l> <C-w>l
 
 set scrolloff=3   " Display next/prev 3 lines after/before cursor
 
@@ -85,6 +68,7 @@ nnoremap N Nzzzv
 ""
 "" Text
 ""
+set guifont=Monaco:h16
 set expandtab      " expand tabs to spaces
 set tabstop=2      " width of an actual tab char in spaces
 set softtabstop=2  " width of an inserted tab char
@@ -93,7 +77,7 @@ set smarttab       " inserts spaces according to shiftwidt when <TAB>
 
 set wrap           " visually wrap lines longer than the window
 
-set colorcolumn=80 " mark lines over 80 columns
+set colorcolumn=120 " mark lines over 120 columns
 
 
 ""
@@ -165,3 +149,11 @@ augroup vimrcEx
 augroup END
 
 runtime bundle.vim
+
+""
+"" Plugins
+"" 
+
+" Toggle NERDTree with leader-o
+nnoremap <leader>o :NERDTreeToggle<CR>
+
