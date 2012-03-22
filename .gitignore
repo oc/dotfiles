@@ -49,3 +49,4 @@ test-out/
 # IDEA Ruby Plugin
 .generators
 .rakeTasks
+.secret*
