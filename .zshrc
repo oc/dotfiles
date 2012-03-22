@@ -148,7 +148,7 @@ alias stoppgsql='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias startredis='redis-server /usr/local/etc/redis.conf'
 
-alias bekkvpn='sudo route add -net 10.0.30.0 10.100.100.1'
+source ~/.secretrc
 
 # Misc helper functions
 pix() { scp $1 oc:/var/www/oc/pix; }
