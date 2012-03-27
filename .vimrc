@@ -138,7 +138,7 @@ set colorcolumn=120 " mark lines over 120 columns
 "" Languages
 ""
 " Ruby
-au BufRead,BufNewFile {Rakefile,Gemfile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+au BufRead,BufNewFile {*.pp,Rakefile,Gemfile,Vagrantfile,Thorfile,config.ru} setl ft=ruby sw=2 ts=2
 
 " JSON syntax highlighting:
 au BufNewFile,BufRead *.json setlocal ft=javascript
