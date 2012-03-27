@@ -3,6 +3,9 @@
 "" Misc
 ""
 set nocompatible     " vim mode
+set encoding=utf-8   " utf8 default
+set noequalalways    " don't resize windows after close...
+
 set undofile         " persist undo tree
 set history=100      " lines of command line history
 set undodir=~/.vim/tmp/undo//,/tmp//    " undo files
@@ -11,19 +14,35 @@ set autoread         " read a unchanged file if it's been changed outside vim
 set ruler            " show line and column number of cursor position
 set showcmd          " display incomplete commands
 set hidden           " Allw hidden buffers
+
+""
+"" Pathogen
+"" 
+call pathogen#infect()
+filetype plugin indent on         " must be after pathogen#infect()
+
 ""
 "" Color and syntax highlighting
 ""
-set background=light
-
 syntax on 
-filetype plugin indent on        " language dependent indenting
+
+set background=light
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" Automatically close syntastic error window when no errors are detected:
+let g:syntastic_auto_loc_list=2
+
+" Mark syntastic errors:
+let g:syntastic_enable_signs=1
 
 ""
 "" User Interface
 ""
-set backspace=indent,eol,start " intuitive backspacing over items
+autocmd InsertLeave * set nocursorline " no cursorline in normal mode
+autocmd InsertEnter * set cursorline   " cursorline in insert mode
 
+set backspace=indent,eol,start " intuitive backspacing over items
 set incsearch                  " display search results incrementally
 set hlsearch                   " highligh all search matches
 set smartcase                  " ignore case on lower letter search
@@ -37,27 +56,49 @@ set t_vb=
 " Disable dumb prompts
 set shortmess=atI
 
-set wildmode=longest,list,full " shell like tab completion behavior
-set wildignore+=*.pyc,*.png
+set wildmode=list:longest,list:full " shell like tab completion behavior
+set wildignore+=*.o,*.pyc,*.png,*.obj,.git,*.rbc,*.class
 
-autocmd InsertLeave * set nocursorline " no cursorline in normal mode
-autocmd InsertEnter * set cursorline   " cursorline in insert mode
 autocmd FileType help wincmd L         " Open help window in vertical split
 
 ""
-"" Movement
+"" Keys and Leader shortcuts
 ""
+let mapleader = ","
+
+nnoremap  <leader>n :set nonumber!<CR> " toggle line numbers
+set listchars=tab:▸\ ,eol:¬
+nnoremap <leader>l :set list!<CR>      " toggle showing ws-characters
+nnoremap <leader>p :set invpaste<CR>   " toggle indenting paste
+
+" Opens an edit command with the path of the current file filled in
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Opens a tab edit command with the path of the current file filled in
+nnoremap <leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Create vertical split and navigate to it:
+nnoremap <leader>w <C-w>v<C-w>l
+
+" Clear search highlights:
+nnoremap <leader><space> :noh<CR>
+
+" Toggle NERDTree with leader-o
+nnoremap <leader>o :NERDTreeToggle<CR>
+nnoremap <leader>O :NERDTreeFind<CR>
+
+let g:CommandTMaxHeight=20
+nnoremap <leader>T :CommandTFlush<CR>
 
 " Move up and down in screen lines, not file lines:
 nnoremap j gj
 nnoremap k gk
 
 " Split movement shortcuts:
-"nnoremap <C-h> <C-w>h
-"noremap <C-j> <C-w>j
-"noremap <C-k> <C-w>k
-"noremap <C-l> <C-w>l
-"
+nnoremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " Scroll faster
 nnoremap <C-e> 3<C-e>
@@ -73,6 +114,10 @@ nnoremap * *zzzv
 nnoremap # #zzzv
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Indent/outdent in visual mode.
+nnoremap <Tab> >gv
+nnoremap <S-Tab> <gv
 
 ""
 "" Text
@@ -92,6 +137,8 @@ set colorcolumn=120 " mark lines over 120 columns
 ""
 "" Languages
 ""
+" Ruby
+au BufRead,BufNewFile {Rakefile,Gemfile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
 " JSON syntax highlighting:
 au BufNewFile,BufRead *.json setlocal ft=javascript
@@ -114,40 +161,6 @@ set statusline+=%=%-14.(%l,%c%V%)\ %L
 
 set laststatus=2
 
-
-""
-"" Leader shortcuts
-""
-" Avoid pinky stretch for '\':
-let mapleader = ","
-
-" Toggle line numbers:
-nnoremap  <leader>n :set nonumber!<CR>
-
-" Toggle display of invisible characters (like TextMate):
-set listchars=tab:▸\ ,eol:¬
-nnoremap <leader>l :set list!<CR>
-
-" Toggle paste mode for no autoindenting:
-nnoremap <leader>p :set invpaste<CR>
-
-" Opens an edit command with the path of the current file filled in
-nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Opens a tab edit command with the path of the current file filled in
-nnoremap <leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Create vertical split and navigate to it:
-nnoremap <leader>w <C-w>v<C-w>l
-
-" Clear search highlights:
-nnoremap <leader><space> :noh<CR>
-
-
-""
-"" Commands
-""
-
 " always jump to the last known cursor position
 augroup vimrcEx
   au!
@@ -157,20 +170,4 @@ augroup vimrcEx
     \ endif
 augroup END
 
-""
-"" Plugins
-"" 
-call pathogen#infect()
-
-" Toggle NERDTree with leader-o
-nnoremap <leader>o :NERDTreeToggle<CR>
-
-let g:solarized_termcolors=256
-colorscheme solarized
-
-" Automatically close syntastic error window when no errors are detected:
-let g:syntastic_auto_loc_list=2
-
-" Mark syntastic errors:
-let g:syntastic_enable_signs=1
 
