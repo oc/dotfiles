@@ -12,6 +12,7 @@ set undodir=~/.vim/tmp/undo//,/tmp//    " undo files
 set directory=~/.vim/tmp/swap//,/tmp//  " swap files
 set autoread         " read a unchanged file if it's been changed outside vim
 set ruler            " show line and column number of cursor position
+set number           " Show line numbers by default
 set showcmd          " display incomplete commands
 set hidden           " Allw hidden buffers
 
@@ -66,7 +67,8 @@ autocmd FileType help wincmd L         " Open help window in vertical split
 ""
 let mapleader = ","
 
-nnoremap  <leader>n :set nonumber!<CR> " toggle line numbers
+nnoremap <leader>n :set nonumber!<CR>          " toggle line numbers
+nnoremap <leader>m :set norelativenumber!<CR>  " toggle relative numbering
 set listchars=tab:▸\ ,eol:¬
 nnoremap <leader>l :set list!<CR>      " toggle showing ws-characters
 nnoremap <leader>p :set invpaste<CR>   " toggle indenting paste
@@ -89,6 +91,7 @@ nnoremap <leader>O :NERDTreeFind<CR>
 
 let g:CommandTMaxHeight=20
 nnoremap <leader>T :CommandTFlush<CR>
+
 
 " Move up and down in screen lines, not file lines:
 nnoremap j gj
@@ -123,6 +126,7 @@ nnoremap <S-Tab> <gv
 "" Text
 ""
 set guifont=Monaco:h16
+set guioptions=-T
 set expandtab      " expand tabs to spaces
 set tabstop=2      " width of an actual tab char in spaces
 set softtabstop=2  " width of an inserted tab char
