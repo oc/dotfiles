@@ -84,6 +84,18 @@ for d in local $(ls /opt/ | grep -v local); do
     fi
   fi
 done
+
+# Git
+alias gup='git pull --rebase --stat -v'
+alias gbme='git branch --merged'
+alias gbno='git branch --no-merged'
+alias gist='nocorrect gist'
+alias globurl='noglob urlglobber '
+alias gpu='git push'
+alias gsl='git shortlog -sn'
+alias gup='git pull --rebase --stat -v'
+
+
 # Projects
 alias spo='cd /Users/oc/dev/BRING/sporing'
 alias rep='cd /Users/oc/dev/BRING/reports'
