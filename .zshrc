@@ -2,7 +2,8 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
+# Look in ~/oh-my-zsh/themes/
+test -e ~/.oh-my-zsh/themes/oc.zsh-theme || ln -s ~/.zsh/oc.zsh-theme ~/.oh-my-zsh/themes/oc.zsh-theme
 export ZSH_THEME="oc"
 
 # Set to this to use case-sensitive completion
