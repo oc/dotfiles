@@ -119,9 +119,9 @@ alias l="ls"
 alias pu="pushd ."
 alias po="popd"
 
-alias m2='mvn clean install'
-alias m2c='mvn clean install -DskipTests -P-integrationTests'
-alias focus='mvn verify -Dcucumber.tags=@focus'
+alias m2='mvn -q clean install'
+alias m2c='mvn -q clean install -DskipTests -P-integrationTests'
+alias focus='mvn -q verify -Dcucumber.tags=@focus'
 
 # Git
 # see
