@@ -63,7 +63,7 @@ set t_vb=
 set shortmess=atI
 
 set wildmode=list:longest,list:full " shell like tab completion behavior
-set wildignore+=*.o,*.pyc,*.png,*.obj,.git,*.rbc,*.class
+set wildignore+=*.o,*.pyc,*.png,*.obj,.git,*.rbc,*.class,*/tmp/*,*.so,*.swp,*.zip
 
 autocmd FileType help wincmd L         " Open help window in vertical split
 
@@ -118,6 +118,13 @@ nnoremap N Nzzzv
 " Indent/outdent in visual mode.
 nnoremap <Tab> >gv
 nnoremap <S-Tab> <gv
+
+"" Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 2
+
+
 
 ""
 "" Text
