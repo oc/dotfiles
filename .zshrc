@@ -38,6 +38,9 @@ export BUNDLER_EDITOR=mvim
 #export LSCOLORS=DxGxcxdxCxcgcdabagacad
 #LSCOLORS=Gxfxcxdxbxegedabagacad
 
+# Java
+export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
+
 export SCALA_HOME=/opt/scala
 export JREBEL_HOME=/opt/jrebel
 export CABAL_HOME=/Users/oc/.cabal
