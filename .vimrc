@@ -90,16 +90,6 @@ nnoremap <leader>w <C-w>v<C-w>l
 " Clear search highlights:
 nnoremap <leader><space> :noh<CR>
 
-" Search from current path.
-nnoremap <leader>t :CtrlPMixed<CR>
-
-" Toggle NERDTree with leader-o
-"nnoremap <leader>o :NERDTreeToggle<CR>
-"nnoremap <leader>O :NERDTreeFind<CR>
-
-"let g:CommandTMaxHeight=20
-
-
 " Move up and down in screen lines, not file lines:
 nnoremap j gj
 nnoremap k gk
