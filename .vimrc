@@ -125,8 +125,11 @@ nnoremap <S-Tab> <gv
 ""
 "" Text
 ""
-set guifont=Monaco:h16
-set guioptions=-T
+if has("gui_running")
+  set guifont=Monaco:h16
+  set guioptions=egmrt
+endif
+
 set expandtab      " expand tabs to spaces
 set tabstop=2      " width of an actual tab char in spaces
 set softtabstop=2  " width of an inserted tab char
