@@ -27,8 +27,13 @@ filetype plugin indent on         " must be after pathogen#infect()
 ""
 syntax on 
 
-set background=light
-let g:solarized_termcolors=256
+if has("gui_running")
+  set background=dark
+else
+  set background=light
+  let g:solarized_termcolors=256
+endif
+
 colorscheme solarized
 
 " Automatically close syntastic error window when no errors are detected:
@@ -127,7 +132,7 @@ nnoremap <S-Tab> <gv
 ""
 if has("gui_running")
   set guifont=Monaco:h16
-  set guioptions=egmrt
+  set guioptions=egmt
 endif
 
 set expandtab      " expand tabs to spaces
