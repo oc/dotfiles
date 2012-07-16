@@ -175,10 +175,12 @@ au FileType go setl noexpandtab softtabstop=0 tabstop=4 shiftwidth=4 nosmarttab
 ""
 "" Statusbar
 ""
-set statusline=%f%m%r%h%w\ %y\ [%{&ff}]
-set statusline+=%=%-14.(%l,%c%V%)\ %L
 
-set laststatus=2
+if has("statusline") && !&cp
+  set laststatus=2  " always show the status bar
+  set statusline=%f%m%r%h%w\ %y\ [%{&ff}]
+  set statusline+=%=%-14.(%l,%c%V%)\ %L\ %b\ 0x%B
+endif
 
 " always jump to the last known cursor position
 augroup vimrcEx
