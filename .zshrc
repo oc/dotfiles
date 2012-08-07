@@ -181,6 +181,10 @@ idiot-mv() {
   fi
 }
 
+update-dotfiles() {
+i  rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz /Users/oc/dotfiles /Users/oc/
+}
+
 pgrep() { ps axco pid,command | grep "${*}" | grep -v grep }
 pkill() { pgrep "${*}" | awk '{ print $1; }' | xargs kill }
 pkill9() { pgrep "${*}" | awk '{ print $1; }' | xargs kill -9 }

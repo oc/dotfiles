@@ -173,10 +173,6 @@ au FileType go setl noexpandtab softtabstop=0 tabstop=4 shiftwidth=4 nosmarttab
 
 " Clojure
 let g:paredit_mode           = 1
-let g:clj_highlight_builtins = 1
-let g:clj_highlight_contrib  = 1
-let g:clj_paren_rainbow      = 1
-let clj_paren_rainbow        = 1
 let vimclojure#ParenRainbow  = 1
 let vimclojure#WantNailgun   = 0
 let vimclojure#HighlightBuiltins = 1
