@@ -171,6 +171,10 @@ au FileType python setl softtabstop=4 tabstop=4 shiftwidth=4
 " Tabs for Go:
 au FileType go setl noexpandtab softtabstop=0 tabstop=4 shiftwidth=4 nosmarttab
 
+" Clojure
+let vimclojure#NailgunClient = "/usr/local/bin/ng"
+let g:paredit_mode = 1
+au BufRead,BufNewFile {*.clj,*.cljs} setl ft=clojure sw=2 ts=2
 
 ""
 "" Statusbar
