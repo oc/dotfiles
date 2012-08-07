@@ -2,7 +2,7 @@ brew install $(cat brews | xargs)
 
 git submodule update --init
 
-hg clone https://bitbucket.org/kotarak/vimclojure .vim/bundle/vimclojure
+hg clone https://bitbucket.org/kotarak/vimclojure .vim/
 
 rsync --exclude .git --exclude my.cnf --exclude boot.sh -avz . /Users/oc/
 
