@@ -45,6 +45,9 @@ export SCALA_HOME=/opt/scala
 export JREBEL_HOME=/opt/jrebel
 export CABAL_HOME=/Users/oc/.cabal
 
+# Clojure
+alias ng-lein='echo "Be sure to set :dev-dependencies [[vimclojure/server \"2.3.3\"]] "; java -cp "`lein classpath`" vimclojure.nailgun.NGServer 127.0.0.1' 
+
 # Autotest
 export AUTOFEATURE=true
 

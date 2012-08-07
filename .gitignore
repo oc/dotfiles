@@ -51,3 +51,4 @@ test-out/
 .rakeTasks
 .secret*
 .vim/bundle/vimclojure
+vimclojure-*
