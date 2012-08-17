@@ -53,7 +53,7 @@ export AUTOFEATURE=true
 
 # OCI8
 export NLS_LANG=NORWEGIAN_NORWAY.UTF8
-export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_10_2
+#export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_10_2
 
 # Maven
 export MAVEN_OPTS="-Xmx400m -Xms80m -XX:MaxPermSize=120m"
@@ -181,8 +181,8 @@ idiot-mv() {
   fi
 }
 
-update-dotfiles() {
-  rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz /Users/oc/dotfiles/ /Users/oc/
+update-dotfiles() { 
+  cd /Users/oc/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz /Users/oc/dotfiles/ /Users/oc/
 }
 
 pgrep() { ps axco pid,command | grep "${*}" | grep -v grep }
