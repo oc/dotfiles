@@ -16,6 +16,8 @@
 	reb = rebase
 	st = status
 	up = pull --rebase --stat -v
+	sreb = svn rebase
+	scd = svn dcommit
 [user]
 	name = Ole Christian Rynning
 	email = oc@rynning.no
