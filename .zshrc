@@ -64,7 +64,7 @@ export GOBIN=/usr/local/bin
 export GOARCH=amd64
 export GOOS=darwin
 
-export PATH=$HOME/bin:/usr/local/bin:$SCALA_HOME/bin:$CABAL_HOME/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$SCALA_HOME/bin:$CABAL_HOME/bin:$PATH:/usr/local/sbin
 
 # /opt
 for d in local $(ls /opt/ | grep -v local); do
