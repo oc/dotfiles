@@ -103,12 +103,8 @@ alias gup='git pull --rebase --stat -v'
 
 
 # Projects
-alias spo='cd /Users/oc/dev/BRING/sporing'
-alias rep='cd /Users/oc/dev/BRING/reports'
-alias bk='cd /Users/oc/dev/BRING/booking'
-alias lab='cd /Users/oc/dev/BRING/bring-label-generator'
-alias ship='cd /Users/oc/dev/BRING/bring-shipment-number'
-alias wip='cd /Users/oc/WIP'
+alias upr='cd /Users/oc/dev/uppercase/uppercase'
+alias gno='cd /Users/oc/dev/geno'
 
 # Overrides
 alias rake='nocorrect rake'
