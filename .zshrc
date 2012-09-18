@@ -41,9 +41,12 @@ export BUNDLER_EDITOR=mvim
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
 export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
-export SCALA_HOME=/opt/scala
 export JREBEL_HOME=/opt/jrebel
 export CABAL_HOME=/Users/oc/.cabal
+
+# sbt-extras (paulp)
+export SBT_EXTRAS=/opt/sbt-extras
+export PATH=$SBT_EXTRAS:$PATH
 
 # Clojure
 alias ng-lein='echo "Be sure to set :dev-dependencies [[vimclojure/server \"2.3.3\"]] "; java -cp "`lein classpath`" vimclojure.nailgun.NGServer 127.0.0.1' 
