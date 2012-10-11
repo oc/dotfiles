@@ -30,9 +30,9 @@ setopt autocd extendedglob auto_pushd no_beep
 # options
 unsetopt auto_name_dirs # fix rvm
 
-export EDITOR=mvim
-export GEM_EDITOR=mvim
-export BUNDLER_EDITOR=mvim
+export EDITOR=emacs
+export GEM_EDITOR=emacs
+export BUNDLER_EDITOR=emacs
 
 # yellow dirs
 #export LSCOLORS=DxGxcxdxCxcgcdabagacad
@@ -53,7 +53,7 @@ export SBT_EXTRAS=/opt/sbt-extras
 export PATH=$SBT_EXTRAS:$PATH
 
 # Clojure
-alias ng-lein='echo "Be sure to set :dev-dependencies [[vimclojure/server \"2.3.3\"]] "; java -cp "`lein classpath`" vimclojure.nailgun.NGServer 127.0.0.1' 
+#alias ng-lein='echo "Be sure to set :dev-dependencies [[vimclojure/server \"2.3.3\"]] "; java -cp "`lein classpath`" vimclojure.nailgun.NGServer 127.0.0.1'
 
 # Autotest
 export AUTOFEATURE=true
@@ -115,9 +115,9 @@ alias gno='cd /Users/oc/dev/geno'
 
 # Overrides
 alias rake='nocorrect rake'
-alias e='mvim'
-alias vi='mvim'
-alias vim='mvim'
+alias e='emacs'
+alias vi='echo "YOU ARE STILL TRYING OUT EMACS => e"'
+alias vim='YOU ARE STILL TRYING OUT EMACS => e'
 
 # Convenience
 alias ls="ls -G -F"
@@ -184,7 +184,7 @@ idiot-mv() {
   fi
 }
 
-update-dotfiles() { 
+update-dotfiles() {
   cd /Users/oc/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz /Users/oc/dotfiles/ /Users/oc/
 }
 
