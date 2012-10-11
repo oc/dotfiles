@@ -117,7 +117,7 @@ alias gno='cd /Users/oc/dev/geno'
 alias rake='nocorrect rake'
 alias e='emacs'
 alias vi='echo "YOU ARE STILL TRYING OUT EMACS => e"'
-alias vim='YOU ARE STILL TRYING OUT EMACS => e'
+alias vim='echo "YOU ARE STILL TRYING OUT EMACS => e"'
 
 # Convenience
 alias ls="ls -G -F"
