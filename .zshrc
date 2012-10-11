@@ -38,6 +38,10 @@ export BUNDLER_EDITOR=mvim
 #export LSCOLORS=DxGxcxdxCxcgcdabagacad
 #LSCOLORS=Gxfxcxdxbxegedabagacad
 
+# Environment locale
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
 export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
