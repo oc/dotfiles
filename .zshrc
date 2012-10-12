@@ -121,7 +121,7 @@ alias ec='emacsclient -c'
 alias vi='echo "YOU ARE STILL TRYING OUT EMACS => e"'
 alias vim='echo "YOU ARE STILL TRYING OUT EMACS => e"'
 
-# Convenience
+# Convenience...
 alias ls="ls -G -F"
 alias la="ls -alh"
 alias ll="ls -l"
