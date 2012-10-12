@@ -30,9 +30,9 @@ setopt autocd extendedglob auto_pushd no_beep
 # options
 unsetopt auto_name_dirs # fix rvm
 
-export EDITOR="emacsclient -n"
-export GEM_EDITOR="emacsclient -n"
-export BUNDLER_EDITOR="emacsclient -n"
+export EDITOR="ec"
+export GEM_EDITOR="ec"
+export BUNDLER_EDITOR="ec"
 
 # yellow dirs
 #export LSCOLORS=DxGxcxdxCxcgcdabagacad
@@ -115,8 +115,9 @@ alias gno='cd /Users/oc/dev/geno'
 
 # Overrides
 alias rake='nocorrect rake'
-alias e='emacsclient -n'
-alias emacs='emacsclient -n'
+alias e='open -a /usr/local/Cellar/emacs/24.2/Emacs.app/Contents/MacOS/Emacs'
+alias ed='/usr/local/bin/emacs -q -nw'
+alias ec='emacsclient -c'
 alias vi='echo "YOU ARE STILL TRYING OUT EMACS => e"'
 alias vim='echo "YOU ARE STILL TRYING OUT EMACS => e"'
 
