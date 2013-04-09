@@ -110,8 +110,11 @@ alias gup='git pull --rebase --stat -v'
 
 
 # Projects
-alias upr='cd /Users/oc/dev/uppercase/uppercase'
-alias gno='cd /Users/oc/dev/geno'
+alias upr='cd /Users/oc/dev/UC/uppercase.no'
+alias gno='cd /Users/oc/dev/UC/geno'
+alias inf='cd /Users/oc/dev/UC/infrastructure'
+alias bh='cd /Users/oc/dev/binghodneland'
+alias pro='cd /Users/oc/dev/protector'
 
 # Overrides
 alias rake='nocorrect rake'
@@ -171,6 +174,8 @@ alias startpgsql='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/s
 alias stoppgsql='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias startredis='redis-server /usr/local/etc/redis.conf'
+
+alias nonascii="LC_COLLATE=C grep '[^ -~]' -nH"
 
 source ~/.secretrc
 
