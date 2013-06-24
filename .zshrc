@@ -71,6 +71,10 @@ export GOBIN=/usr/local/bin
 export GOARCH=amd64
 export GOOS=darwin
 
+# Oracle DBMs
+export ORACLE_HOME=/opt/instantclient_11_2
+alias sqlplus='env DYLD_LIBRARY_PATH=$ORACLE_HOME /opt/instantclient_11_2/sqlplus'
+
 export PATH=$HOME/bin:/usr/local/bin:$SCALA_HOME/bin:$CABAL_HOME/bin:$PATH:/usr/local/sbin
 
 # /opt
