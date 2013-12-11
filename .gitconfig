@@ -18,6 +18,7 @@
 	up = pull --rebase --stat -v
 	sreb = svn rebase
 	scd = svn dcommit
+	rmsub = "!f(){ git rm --cached \"$1\"; rm -r \"$1\"; git config -f .gitmodules --remove-section \"submodule.$1\"; git config -f .git/config --remove-section \"submodule.$1\"; git add .gitmodules; }; f"
 [user]
 	name = Ole Christian Rynning
 	email = oc@rynning.no
