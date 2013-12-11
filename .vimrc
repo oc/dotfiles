@@ -18,14 +18,14 @@ set hidden           " Allw hidden buffers
 
 ""
 "" Pathogen
-"" 
+""
 call pathogen#infect()
 filetype plugin indent on         " must be after pathogen#infect()
 
 ""
 "" Color and syntax highlighting
 ""
-syntax on 
+syntax on
 
 if has("gui_running")
   set background=dark
@@ -59,6 +59,10 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
+if has('autocmd')
+  autocmd GUIEnter * set noeb vb t_vb=
+endif
+
 " Disable dumb prompts
 set shortmess=atI
 
@@ -76,7 +80,7 @@ nnoremap <leader>n :set nonumber!<CR>          " toggle line numbers
 nnoremap <leader>m :set norelativenumber!<CR>  " toggle relative numbering
 set listchars=tab:▸\ ,eol:¬
 nnoremap <leader>l :set list!<CR>      " toggle showing ws-characters
-nnoremap <leader>p :set invpaste<CR>   " toggle indenting paste
+nnoremap <leader>i :set invpaste<CR>   " toggle indenting paste
 
 " Opens an edit command with the path of the current file filled in
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -198,6 +202,21 @@ augroup vimrcEx
     \ endif
 augroup END
 
+"" Unmap F1
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+"" NERDtree
+let g:NERDTreeWinPos = "right"
+autocmd VimEnter * if !argc() | NERDTree | endif
+autocmd VimEnter * wincmd p
+map <leader>. :NERDTreeToggle<CR>
+nmap <silent> <special> <F2> :NERDTreeToggle<CR>
+
+"" Markdown to HTML
+nmap <leader>md :%!~/bin/Markdown.pl --html4tags<CR>
+
 "" Neat stuff taken from janus
 
 if has("gui_macvim") && has("gui_running")
@@ -262,7 +281,7 @@ else
 
   imap <A-]> <Esc>>>i
   imap <A-[> <Esc><<i
- 
+
   " Bubble single lines
   nmap <C-Up> [e
   nmap <C-Down> ]e
