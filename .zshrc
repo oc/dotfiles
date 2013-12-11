@@ -111,6 +111,7 @@ alias globurl='noglob urlglobber '
 alias gpu='git push'
 alias gsl='git shortlog -sn'
 alias gup='git pull --rebase --stat -v'
+alias grso='git remote show origin'
 
 
 # Projects
