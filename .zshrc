@@ -42,11 +42,11 @@ export BUNDLER_EDITOR="mvim"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+# Node
+export PATH=/usr/local/share/npm/bin:$PATH
+
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home)
-export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
-export JREBEL_HOME=/opt/jrebel
-export CABAL_HOME=/Users/oc/.cabal
 
 # sbt-extras (paulp)
 export SBT_EXTRAS=/opt/sbt-extras
