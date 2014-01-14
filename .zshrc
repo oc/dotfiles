@@ -115,11 +115,11 @@ alias grso='git remote show origin'
 
 
 # Projects
-alias upr='cd /Users/oc/dev/UC/uppercase.no'
-alias gno='cd /Users/oc/dev/UC/geno'
-alias inf='cd /Users/oc/dev/UC/infrastructure'
+alias upr='cd /Users/oc/dev/uppercase.no'
+alias gno='cd /Users/oc/dev/geno'
+alias inf='cd /Users/oc/dev/infrastructure'
 alias bh='cd /Users/oc/dev/binghodneland'
-alias pro='cd /Users/oc/dev/protector'
+alias mb='cd /Users/oc/dev/manibus'
 
 # Overrides
 alias rake='nocorrect rake'
@@ -233,5 +233,6 @@ function avi2ipad() {
 #    -trellis 1 -mbd 2 -cmp 2 -subcmp 2 -threads 0 -acodec aac \
 #    -ac 2 -ab 128k ${outfile}
 
+source ~/.profile
 # RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
