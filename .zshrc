@@ -236,6 +236,18 @@ function avi2ipad() {
 #    -trellis 1 -mbd 2 -cmp 2 -subcmp 2 -threads 0 -acodec aac \
 #    -ac 2 -ab 128k ${outfile}
 
+# Logstalgia goodness
+alias lswww1="ssh www-data@www1 tail -f /var/log/nginx/missionnorway.no.access.log | logstalgia --sync -x"
+alias lswww1c="ssh www-data@www1 tail -f /var/log/nginx/missionnorway.no.access.log | logstalgia --sync --output-framerate 25 --output-ppm-stream www1-$(date +%s).ppm"
+
+function ls2mp4() {
+  for file in $*; do
+    echo -n "Transcoding $file to $(basename $file .ppm).mp4"
+    ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $file -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 $(basename $file .ppm).mp4
+    echo " [OK]"
+  done
+}
+
 source ~/.profile
 # RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
