@@ -239,14 +239,18 @@ function avi2ipad() {
 # Logstalgia goodness
 function logstalgiaDomain() {
   domain=$1
+  server=$2
+  [[ -z "$server" ]] && {
+    server=www1
+  }
   echo "Tracking domain: ${domain}"
-  ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
+  ssh www-data@${server} tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
 }
 
 function logstalgiaCaptureDomain() {
   domain=$1
   echo "Capturing domain: ${domain}"
-  ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync --output-framerate 25 --output-ppm-stream www1-${domain}-$(date +%s).ppm
+  ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --output-framerate 25 --output-ppm-stream www1-${domain}-$(date +%s).ppm --sync
 }
 
 function logstalgiaToMpeg() {
