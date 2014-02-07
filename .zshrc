@@ -241,7 +241,7 @@ function logstalgiaDomain() {
   domain=$1
   echo "Tracking domain: ${domain}"
   ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
-} 
+}
 
 function logstalgiaCaptureDomain() {
   domain=$1
@@ -249,7 +249,7 @@ function logstalgiaCaptureDomain() {
   ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync --output-framerate 25 --output-ppm-stream www1-${domain}-$(date +%s).ppm
 }
 
-function ls2mp4() {
+function logstalgiaToMpeg() {
   for file in $*; do
     echo -n "Transcoding $file to $(basename $file .ppm).mp4"
     ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $file -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 $(basename $file .ppm).mp4
