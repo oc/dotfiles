@@ -237,8 +237,17 @@ function avi2ipad() {
 #    -ac 2 -ab 128k ${outfile}
 
 # Logstalgia goodness
-alias lswww1="ssh www-data@www1 tail -f /var/log/nginx/missionnorway.no.access.log | logstalgia --sync -x"
-alias lswww1c="ssh www-data@www1 tail -f /var/log/nginx/missionnorway.no.access.log | logstalgia --sync --output-framerate 25 --output-ppm-stream www1-$(date +%s).ppm"
+function logstalgiaDomain() {
+  domain=$1
+  echo "Tracking domain: ${domain}"
+  ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
+} 
+
+function logstalgiaCaptureDomain() {
+  domain=$1
+  echo "Capturing domain: ${domain}"
+  ssh www-data@www1 tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync --output-framerate 25 --output-ppm-stream www1-${domain}-$(date +%s).ppm
+}
 
 function ls2mp4() {
   for file in $*; do
