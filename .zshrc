@@ -239,12 +239,13 @@ function avi2ipad() {
 # Logstalgia goodness
 function logstalgiaDomain() {
   domain=$1
-  server=$2
-  [[ -z "$server" ]] && {
-    server=www1
+  ssh_args="${@:2}"
+  [[ -z "$ssh_args" ]] && {
+    ssh_args=www-data@www1
   }
   echo "Tracking domain: ${domain}"
-  ssh www-data@${server} tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
+  echo ssh $ssh_args tail -f /var/log/nginx/${domain}.access.log \| logstalgia --sync -x
+  ssh $ssh_args tail -f /var/log/nginx/${domain}.access.log | logstalgia --sync -x
 }
 
 function logstalgiaCaptureDomain() {
@@ -259,6 +260,14 @@ function logstalgiaToMpeg() {
     ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $file -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 $(basename $file .ppm).mp4
     echo " [OK]"
   done
+}
+
+function ipv4() {
+  curl -s http://testmyipv6.com/ | grep -A1 myIPaddr | tail -n1
+}
+
+function ipv6() {
+  curl -s http://v6.testmyipv6.com/ | grep -A1 myIPaddr | tail -n1
 }
 
 source ~/.profile
