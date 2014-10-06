@@ -63,7 +63,7 @@ export NLS_LANG=NORWEGIAN_NORWAY.UTF8
 #export DYLD_LIBRARY_PATH=/opt/oracle/instantclient_10_2
 
 # Maven
-export MAVEN_OPTS="-Xmx400m -Xms80m -XX:MaxPermSize=120m"
+export MAVEN_OPTS="-Xmx400m -Xms80m"
 
 # Go
 export GOROOT=`/usr/local/bin/brew --prefix go`
