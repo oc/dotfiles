@@ -1,7 +1,7 @@
 [core]
 	editor = mate -w
 	excludesfile = /Users/oc/.gitignore
-	autocrlf = input
+	autocrlf = false
 	safecrlf = true
 [alias]
 	a = add
@@ -18,7 +18,8 @@
 	up = pull --rebase --stat -v
 	sreb = svn rebase
 	scd = svn dcommit
-	rmsub = "!f(){ git rm --cached \"$1\"; rm -r \"$1\"; git config -f .gitmodules --remove-section \"submodule.$1\"; git config -f .git/config --remove-section \"submodule.$1\"; git add .gitmodules; }; f"
+  rmsub = "!f(){ git rm --cached \"$1\"; rm -r \"$1\"; git config -f .gitmodules --remove-section \"submodule.$1\"; git config -f .git/config --remove-section \"submodule.$1\"; git add .gitmodules; }; f"
+  gg = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 [user]
 	name = Ole Christian Rynning
 	email = oc@rynning.no
@@ -29,3 +30,19 @@
 	status = auto
 [merge]
 	tool = opendiff
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[push]
+	default = matching
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
