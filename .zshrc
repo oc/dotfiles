@@ -1,134 +1,57 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+BREW_CASKROOM=/usr/local/Caskroom
+U_HOME=/Users/oc
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git gem textmate ruby rails bundler gulp django python pyenv postgres
+  git gem ruby bundler python pyenv postgres docker gcloud yarn kubectx kubectl minikube
 )
-
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# ----------------------------------------------------------------------
 HISTFILE=~/.zsh_history
-HISTSIZE=5000
-SAVEHIST=500
-setopt autocd extendedglob auto_pushd no_beep
-unsetopt auto_name_dirs # fix rvm
+HISTSIZE=50000000
+SAVEHIST=50000000
 
+setopt autocd extendedglob auto_pushd no_beep
+
+unsetopt auto_name_dirs 
+
+alias list_jdk='/usr/libexec/java_home -V'
+#
 export JAVA_HOME=$(/usr/libexec/java_home)
+# OpenJDK 11
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
 
 # Environment locale
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+alias globurl='noglob urlglobber '
 
 # Git
 alias gup='git pull --rebase --stat -v'
 alias gbme='git branch --merged'
 alias gbno='git branch --no-merged'
 alias gist='nocorrect gist'
-alias globurl='noglob urlglobber '
+alias gbcb='git symbolic-ref --short HEAD'
+alias gbprune='git fetch --prune'
+
+function gbclean() {
+  test $(gbcb) = 'master' && (gbme|grep -v master|xargs git branch -D)
+}
+
 alias gpu='git push'
 alias gsl='git shortlog -sn'
 alias gup='git pull --rebase --stat -v'
 alias grso='git remote show origin'
-
+alias grprune='git remote prune origin'
 
 # Projects
-alias upr='cd /Users/oc/dev/uppercase.no'
-alias gno='cd /Users/oc/dev/geno'
-alias inf='cd /Users/oc/dev/infrastructure'
-alias bh='cd /Users/oc/dev/binghodneland'
-alias mb='cd /Users/oc/dev/manibus'
+alias inf='cd ${U_HOME}/dev/infrastructure'
 
 # Overrides
 alias rake='nocorrect rake'
-alias vi='mvim'
-alias vim='mvim'
+alias vi='vim'
 
 # Convenience...
 alias ls="ls -G -F"
@@ -180,7 +103,52 @@ pkill() { pgrep "${*}" | awk '{ print $1; }' | xargs kill }
 pkill9() { pgrep "${*}" | awk '{ print $1; }' | xargs kill -9 }
 
 update-dotfiles() {
-  cd /Users/oc/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz /Users/oc/dotfiles/ /Users/oc/
+  cd ${U_HOME}/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz ${U_HOME}/dotfiles/ ${U_HOME}
 }
 
-source ~/.secretrc
+mov2gif() {
+  ffmpeg -ss 5 -t 25 -i $1 -vf "fps=10,scale=640:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 $2
+}
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# gcloud
+source "${BREW_CASKROOM}/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "${BREW_CASKROOM}/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# Kubernetes
+alias kc=kubectl
+alias kctx='kubectl config current-context'
+
+# rbenv
+eval "$(rbenv init -)"
+
+# gpg
+export GPG_TTY=$(tty)
+
+# SDKMAN
+export SDKMAN_DIR="${U_HOME}/.sdkman"
+[[ -s "${U_HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${U_HOME}/.sdkman/bin/sdkman-init.sh"
+
+# Homebrew
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# gitDateToEpoch "Tue Jul 2 09:20:45 2019 +0200"
+function gitDateToEpoch() {
+  git_date=$1
+  date -j -f "%a %b %d %T %Y %z" "$git_date" "+%s"
+}
+
+# lowercase uuid
+alias uuidgenl="uuidgen | tr 'A-Z' 'a-z'"
+
+# go
+export GOPATH=${U_HOME}/go
+
+test -f ~/.secretrc && source ~/.secretrc
+test -f ~/.clientrc && source ~/.clientrc
