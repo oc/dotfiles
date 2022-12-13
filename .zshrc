@@ -1,12 +1,12 @@
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-BREW_CASKROOM=/usr/local/Caskroom
-U_HOME=/Users/oc
 
 plugins=(
   git gem ruby bundler python pyenv postgres docker gcloud yarn kubectx kubectl minikube
 )
 source $ZSH/oh-my-zsh.sh
+
+BREW_CASKROOM="$(brew --prefix)/Caskroom"
 
 HISTFILE=~/.zsh_history
 HISTSIZE=50000000
@@ -18,13 +18,13 @@ unsetopt auto_name_dirs
 
 alias list_jdk='/usr/libexec/java_home -V'
 #
-export JAVA_HOME=$(/usr/libexec/java_home)
+JAVA_HOME=$(/usr/libexec/java_home)
 # OpenJDK 11
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home
 
 # Environment locale
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
 
 alias globurl='noglob urlglobber '
 
@@ -47,7 +47,7 @@ alias grso='git remote show origin'
 alias grprune='git remote prune origin'
 
 # Projects
-alias inf='cd ${U_HOME}/dev/infrastructure'
+alias inf='cd ${HOME}/dev/infrastructure'
 
 # Overrides
 alias rake='nocorrect rake'
@@ -103,7 +103,7 @@ pkill() { pgrep "${*}" | awk '{ print $1; }' | xargs kill }
 pkill9() { pgrep "${*}" | awk '{ print $1; }' | xargs kill -9 }
 
 update-dotfiles() {
-  cd ${U_HOME}/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz ${U_HOME}/dotfiles/ ${U_HOME}
+  cd ${HOME}/dotfiles && rsync --exclude .git --exclude my.cnf --exclude boot.sh --exclude vimclojure-* -avz ${HOME}/dotfiles/ ${HOME}
 }
 
 mov2gif() {
@@ -119,16 +119,6 @@ source "${BREW_CASKROOM}/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh
 # Kubernetes
 alias kc=kubectl
 alias kctx='kubectl config current-context'
-
-# rbenv
-eval "$(rbenv init -)"
-
-# gpg
-export GPG_TTY=$(tty)
-
-# SDKMAN
-export SDKMAN_DIR="${U_HOME}/.sdkman"
-[[ -s "${U_HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${U_HOME}/.sdkman/bin/sdkman-init.sh"
 
 # Homebrew
 if type brew &>/dev/null; then
@@ -147,8 +137,27 @@ function gitDateToEpoch() {
 # lowercase uuid
 alias uuidgenl="uuidgen | tr 'A-Z' 'a-z'"
 
-# go
-export GOPATH=${U_HOME}/go
+export OPENSSL3_PATH="/opt/homebrew/opt/openssl@3"
+
+# see .ruby-build-env
+export LDFLAGS="${LDFLAGS} -L${OPENSSL3_PATH}/lib"
+export CPPFLAGS="${CPPFLAGS} -I${OPENSSL3_PATH}/include"
+
+# GKE
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+# gpg
+export GPG_TTY=$(tty)
+
+export HISTFILE HISTSIZE SAVEHIST LANG LC_ALL JAVA_HOME GPG_TTY
+export PATH="$OPENSSL3_PATH/bin:$PATH"
+
+# asdf - node, ruby, python, etc
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# rbenv
+#eval "$(rbenv init -)"
 
 test -f ~/.secretrc && source ~/.secretrc
 test -f ~/.clientrc && source ~/.clientrc
+test -f ~/.ruby-build-env && source ~/.ruby-build-env
